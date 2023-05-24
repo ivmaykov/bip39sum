@@ -9,6 +9,7 @@ fn bytes_to_mnemonic(bytes: &[u8], word_sep: &str) -> Result<String, bip39::Erro
 
 fn bytes_to_hex(bytes: &[u8]) -> String {
     let mut result = String::new();
+    result.reserve_exact(bytes.len() * 2);
     for byte in bytes {
         result.push_str(&format!("{:x}", byte));
     }
