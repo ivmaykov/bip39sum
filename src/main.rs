@@ -25,6 +25,7 @@ fn print_usage(program_name: &str) {
     println!("  BIP39 is the BIP39 mnemonic representation of the SHA256 hash, with underscore (_) word separators,");
     println!("  SHA256 is a hex-encoded SHA256 hash of the file, and");
     println!("  FILE_NAME is the input filename.");
+    println!("To read from stdin, use a single dash character (-) as the FILE argument.");
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
