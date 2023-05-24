@@ -29,7 +29,10 @@ fn print_usage(program_name: &str) {
 
 fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
-    if args.len() == 1 {
+    if args.len() == 1
+        || args.contains(&String::from("--help"))
+        || args.contains(&String::from("-h"))
+    {
         print_usage(&args[0]);
         return Ok(());
     }
@@ -41,7 +44,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     iter.next(); // skip program name
     for file_name in iter {
         let mut hasher = Sha256::new();
-        let mut file = std::fs::File::open(file_name)?;
+        let mut file: Box<dyn std::io::Read> = match file_name.as_str() {
+            "-" => Box::new(std::io::stdin()),
+            _ => Box::new(std::fs::File::open(file_name).unwrap()),
+        };
         std::io::copy(&mut file, &mut hasher)?;
         let bytes = hasher.finalize();
         let hex_bytes = bytes_to_hex(&bytes);
