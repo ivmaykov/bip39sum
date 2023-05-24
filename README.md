@@ -1,7 +1,7 @@
 # Bip39sum - human-friendly file checksum tool
-Bip39sum is a human-friendly tool for calculating file checksums. It uses the SHA256 cryptographic hash function and Bitcoin's BIP39 mnemonic algorithm to output human-friendly checksums of files. Such checksums are much easier to verify by hand than the output of `sha256sum`, which is a hex-encoded 64-character hex string. Bip39sum also outputs the sha256 sums so the checksum computed by the tool can be compared to the output of `sha256sum` if desired.
+Bip39sum is a human-friendly tool for calculating file checksums. It uses the SHA256 cryptographic hash function represented as a Bitcoin BIP39 mnemonic to output human-friendly checksums of files. Such checksums are much easier to verify by hand than the output of `sha256sum` - 24 distinctive words vs. 64 hexadecimal characters. Bip39sum also outputs the sha256 sums so the checksum computed by the tool can be compared to the output of `sha256sum` if desired.
 
-Currently the tool is only available in source code form and has to be compiled by users. It is written in [Rust](https://www.rust-lang.org/) and depends on the [bip39](https://crates.io/crates/bip39), [hex](https://crates.io/crates/hex), and [sha2](https://crates.io/crates/sha2) crates.
+Currently the tool is only available in source code form and has to be compiled by users. It is written in [Rust](https://www.rust-lang.org/) and depends on the [bip39](https://crates.io/crates/bip39) and [sha2](https://crates.io/crates/sha2) crates.
 
 ## Building the code
 Requirements: git, rust.
@@ -12,9 +12,15 @@ cargo build
 ```
 
 ## Usage
+The tool can be run with `cargo run`:
 ```
-$ cargo run src/main.rs
-rule_oak_tag_invest_script_smile_all_engine_magic_give_script_error_quick_hungry_expose_follow_immense_fat_patient_over_isolate_tornado_curtain_warrior bd32fb74bafc1b99419a5385cc4f06a66afade942ad5718a6e844ef769cacd8f src/main.rs
+$ cargo run ./src/main.rs
+human_exclude_resist_choose_arrest_horn_online_piano_gauge_hobby_math_position_cushion_fault_ankle_faculty_naive_arm_blouse_weasel_noble_canoe_twice_focus 6ec9dedd9420c6db26bd20608d8a24543366a7c24a8d92a17460fc495a433ad2 ./src/main.rs
+```
+The binary can also be invoked directly:
+```
+$ ./target/debug/bip39sum ./src/main.rs
+human_exclude_resist_choose_arrest_horn_online_piano_gauge_hobby_math_position_cushion_fault_ankle_faculty_naive_arm_blouse_weasel_noble_canoe_twice_focus 6ec9dedd9420c6db26bd20608d8a24543366a7c24a8d92a17460fc495a433ad2 ./src/main.rs
 ```
 
 ## License

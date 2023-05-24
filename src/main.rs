@@ -7,14 +7,22 @@ fn bytes_to_mnemonic(bytes: &[u8], word_sep: &str) -> Result<String, bip39::Erro
     Ok(result_vec.join(word_sep))
 }
 
+fn bytes_to_hex(bytes: &[u8]) -> String {
+    let mut result = String::new();
+    for byte in bytes {
+        result.push_str(&format!("{:x}", byte));
+    }
+    result
+}
+
 fn print_usage(program_name: &str) {
     println!("Usage: {} [FILE]...", program_name);
     println!(
         "Human-friendly file checksum program - prints file SHA256 hashes as BIP-39 mnemonics."
     );
     println!("For each input file, this program outputs a line in the format: \"BIP39 SHA256 FILE_NAME\", where:");
-    println!("  BIP39 is the BIP39 mnemonic equivalent of the SHA256 hash, with underscore (_) word separators, and");
-    println!("  SHA256 is a hex-encoded SHA256 hash of the file,");
+    println!("  BIP39 is the BIP39 mnemonic representation of the SHA256 hash, with underscore (_) word separators,");
+    println!("  SHA256 is a hex-encoded SHA256 hash of the file, and");
     println!("  FILE_NAME is the input filename.");
 }
 
@@ -35,7 +43,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let mut file = std::fs::File::open(file_name)?;
         std::io::copy(&mut file, &mut hasher)?;
         let bytes = hasher.finalize();
-        let hex_bytes = hex::encode(&bytes);
+        let hex_bytes = bytes_to_hex(&bytes);
         println!(
             "{} {} {}",
             bytes_to_mnemonic(&bytes, "_")?,
